@@ -23,14 +23,14 @@ exit(99);
 return (buffer);
 }
 /**
-* close_file - close file descriptors.
-* @ms: file descriptor to close.
+* close_file - terminate file descriptors.
+* @ms: file descriptor to terminate.
 */
 void close_file(int ms)
 {
-int b;
-b = close(ms);
-if (b == -1)
+int c;
+c = close(ms);
+if (c == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't close ms %d\n", ms);
 exit(100);
