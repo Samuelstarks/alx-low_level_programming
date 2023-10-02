@@ -28,9 +28,9 @@ return (buffer);
 */
 void close_file(int ms)
 {
-int c;
-c = close(ms);
-if (c == -1)
+int q;
+q = close(ms);
+if (q == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't close ms %d\n", ms);
 exit(100);
