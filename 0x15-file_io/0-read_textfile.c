@@ -2,24 +2,25 @@
 #include <stdlib.h>
 
 /**
-* read_textfile- Read and print TXT file to STDOUT.
-* @filename: Reading the TXT file
+* read_textfile- Read, Print TXT file to STANDARD OUTPUT.
+* @filename: Reading TXT file
 * @letters: num of letters to read
-* Return: s- actual number of bytes read and printed
-* and 0 when function fails or NULL if filename fails.
+* Return: k- read and print actual num of bytes or
+* 0 when func fails or filename is NULL.
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 char *buf;
-ssize_t ab;
-ssize_t s;
+ssize_t fd;
+ssize_t k;
 ssize_t t;
-ab = open(filename, O_RDONLY);
-if (ab == -1)
+fd = open(filename, O_RDONLY);
+if (fd == -1)
 return (0);
 buf = malloc(sizeof(char) * letters);
-t = read(ab, buf, letters);
-s = write(STDOUT_FILENO, buf, t);
+t = read(fd, buf, letters);
+k = write(STDOUT_FILENO, buf, t);
 free(buf);
-close(ab);
-return (s);
+close(fd);
+return (k);
+}
