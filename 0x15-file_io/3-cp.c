@@ -5,7 +5,7 @@ char *create_buffer(char *file);
 void close_file(int fd);
 
 /**
-* create_buffer - Reserve memory 1024 bytes for buffer.
+* create_buffer - Reserve 1024 bytes for buffer.
 * @file: Name of file buffer reserves characters for.
 *
 * Return: Reference to freshly reserved buffer.
@@ -23,8 +23,8 @@ exit(99);
 return (buffer);
 }
 /**
-* close_file - terminate file descriptors.
-* @ms: file descriptor to terminate.
+* close_file - close file descriptors.
+* @ms: file descriptor to close.
 */
 void close_file(int ms)
 {
