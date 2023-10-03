@@ -16,10 +16,10 @@ void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 /**
-* check_elf - Verify if file is ELF file.
-* @e_ident: reference to array with ELF magic nums.
+* check_elf - Verify file is ELF file.
+* @e_ident: reference array ELF magic nums.
 *
-* Description: If file is not ELF file, exit code 98.
+* Description: exit with code 98 when file is not ELF file.
 */
 void check_elf(unsigned char *e_ident)
 {
@@ -36,10 +36,9 @@ exit(98);
 }
 }
 }
-
 /**
-* print_magic - Print magic nums of ELF header.
-* @e_ident: reference to array with ELF magic nums.
+* print_magic - output magic nums ELF header.
+* @e_ident: reference array ELF magic nums.
 *
 * Description: Magic nums separates by spaces.
 */
@@ -57,8 +56,8 @@ printf(" ");
 }
 }
 /**
-* print_class - Output class of an ELF header.
-* @e_ident: A reference to array with ELF class.
+* print_class - Output class of ELF header.
+* @e_ident: reference array with ELF class.
 */
 void print_class(unsigned char *e_ident)
 {
@@ -80,7 +79,7 @@ printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 }
 /**
 * print_data - Output data of an ELF header.
-* @e_ident: reference to array with ELF class.
+* @e_ident: A reference to array with ELF class.
 */
 void print_data(unsigned char *e_ident)
 {
@@ -101,9 +100,9 @@ printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 }
 }
 /**
-*  * print_version - Output the version of an ELF header.
-*  * @e_ident: reference to array with ELF version.
-*  */
+* print_version - Output version of ELF header.
+* @e_ident: reference array with ELF version.
+*/
 void print_version(unsigned char *e_ident)
 {
 printf(" Version: %d",
@@ -120,7 +119,7 @@ break;
 }
 /**
 * print_osabi - Output the OS/ABI of ELF header.
-* @e_ident: reference to array with ELF version.
+* @e_ident: A reference to array with the ELF version.
 */
 void print_osabi(unsigned char *e_ident)
 {
@@ -162,8 +161,8 @@ printf("<unknown: %x>\n", e_ident[EI_OSABI]);
 }
 }
 /**
-* print_abi - Output ABI version of ELF header.
-* @e_ident: reference to array with ELF ABI version.
+* print_abi - Output ABI version ELF header.
+* @e_ident: reference array ELF ABI version.
 */
 void print_abi(unsigned char *e_ident)
 {
@@ -171,9 +170,9 @@ printf(" ABI Version: %d\n",
 e_ident[EI_ABIVERSION]);
 }
 /**
-* print_type - Output the type of ELF header.
+* print_type - Output type of ELF header.
 * @e_type: The ELF type.
-* @e_ident: reference to array with ELF class.
+* @e_ident: reference array with ELF class.
 */
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
@@ -202,9 +201,9 @@ printf("<unknown: %x>\n", e_type);
 }
 }
 /**
-* print_entry - Output entry point of an ELF header.
+* print_entry - Output entry point ELF header.
 * @e_entry: memory location ELF entry point.
-* @e_ident: reference to array with ELF class.
+* @e_ident: reference array with ELF class.
 */
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
@@ -237,9 +236,9 @@ exit(98);
 }
 /**
 * main - show information in the
-* ELF header at beginning of an ELF file.
-* @argc: The num of arguments in program.
-* @argv: array of reference to the arguments.
+* ELF header at start of ELF file.
+* @argc: num of arguments sent to program.
+* @argv: array of reference to arguments.
 *
 * Return: 0 on success.
 *
@@ -249,9 +248,9 @@ exit(98);
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
 Elf64_Ehdr *header;
-int o, r;
-o = open(argv[1], O_RDONLY);
-if (o == -1)
+int z, r;
+z = open(argv[1], O_RDONLY);
+if (z == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 exit(98);
@@ -259,15 +258,15 @@ exit(98);
 header = malloc(sizeof(Elf64_Ehdr));
 if (header == NULL)
 {
-close_elf(o);
+close_elf(z);
 dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 exit(98);
 }
-r = read(o, header, sizeof(Elf64_Ehdr));
+r = read(z, header, sizeof(Elf64_Ehdr));
 if (r == -1)
 {
 free(header);
-close_elf(o);
+close_elf(z);
 dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
 exit(98);
 }
@@ -282,6 +281,6 @@ print_abi(header->e_ident);
 print_type(header->e_type, header->e_ident);
 print_entry(header->e_entry, header->e_ident);
 free(header);
-close_elf(o);
+close_elf(z);
 return (0);
 }
